@@ -50,6 +50,7 @@ async function createUser(request, response, next) {
     const name = request.body.name;
     const email = request.body.email;
     const password = request.body.password;
+    const password_confirm = request.body.password_confirm;
 
     const emailTaken = await usersService.checkEmail(email);
 
@@ -57,6 +58,13 @@ async function createUser(request, response, next) {
       throw errorResponder(
         errorTypes.EMAIL_ALREADY_TAKEN,
         'Failed to create user, email already taken'
+      );
+    }
+
+    if (password !== password_confirm) {
+      throw errorResponder(
+        errorTypes.INVALID_PASSWORD,
+        'Invalid password, password do not match'
       );
     }
 
