@@ -72,11 +72,37 @@ async function checkEmailExists(email) {
   return !!emailUser;
 }
 
+
+/**
+ * Get user password
+ * @param {string} id - User ID
+ * @returns {Promise}
+ */
+async function getUserPassword(id) {
+  const user = await User.findById(id);
+  return user ? user.password : null;
+}
+
+/**
+ * Update user password
+ * @param {string} id - User ID
+ * @param {string} newPassword - New Password
+ * @returns {Promise}
+ */
+async function updateUserPassword(id, newPassword) {
+  return User.updateOne(
+    { _id: id },
+    { $set: { password: newPassword } }
+  );
+}
+
 module.exports = {
   getUsers,
   getUser,
   createUser,
   updateUser,
   deleteUser,
-  checkEmailExists,
+  checkEmailExists, 
+  getUserPassword,
+  updateUserPassword,
 };

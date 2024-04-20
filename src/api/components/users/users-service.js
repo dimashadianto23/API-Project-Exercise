@@ -120,6 +120,33 @@ async function checkEmail(email) {
   }
 }
 
+/**
+ * Change new password
+ * @param {string} id - User ID
+ * @param {string} oldPassword - Old Password
+ * @param {string} newPassword - New Passwrd
+ * @returns {Promise}
+ */
+async function changePassword(id, oldPassword, newPassword) {
+  try {
+    const userPassword = await usersRepository.getUserPassword(id);
+    if (!userPassword) {
+      return null;
+    }
+
+    const passwordMatch = await passwordMatched(oldPassword, userPassword);
+    if (!passwordMatch) {
+      return null;
+    }
+
+    const hashedNewPassword = await hashPassword(newPassword);
+    await usersRepository.updateUserPassword(id, hashedNewPassword);
+    return true;
+  } catch (error) {
+    return null;
+  }
+}
+
 module.exports = {
   getUsers,
   getUser,
@@ -127,4 +154,5 @@ module.exports = {
   updateUser,
   deleteUser,
   checkEmail,
+  changePassword,
 };
