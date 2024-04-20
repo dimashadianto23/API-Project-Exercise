@@ -72,7 +72,6 @@ async function checkEmailExists(email) {
   return !!emailUser;
 }
 
-
 /**
  * Get user password
  * @param {string} id - User ID
@@ -102,7 +101,7 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
-  checkEmailExists, 
+  checkEmailExists,
   getUserPassword,
   updateUserPassword,
 };

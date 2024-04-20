@@ -16,7 +16,7 @@ module.exports = {
       email: joi.string().email().required().label('Email'),
     },
   },
-  
+
   changePassword: {
     body: {
       old_password: joi.string().required().label('Old Password'),

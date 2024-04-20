@@ -134,7 +134,6 @@ async function deleteUser(request, response, next) {
   }
 }
 
-
 /**
  * Handle change new password user request
  * @param {object} request - Express request object
